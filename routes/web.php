@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SubtypeController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,6 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/subtypes/store', [SubtypeController::class, 'store'])->name('subtypes.store');
     Route::get('/subtypes/edit/{id}', [SubtypeController::class, 'edit'])->name('subtypes.edit');
     Route::get('/subtypes/delete/{id}', [SubtypeController::class, 'destroy'])->name('subtypes.destroy');
+
+    //patients
+    Route::get('/patients', [PatientController::class, 'index'])->name('patients');
+    Route::get('/patients/get', [PatientController::class, 'get'])->name('patients.get');
+    Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');
+    Route::post('/patients/store', [PatientController::class, 'store'])->name('patients.store');
 });
 
 require __DIR__.'/auth.php';

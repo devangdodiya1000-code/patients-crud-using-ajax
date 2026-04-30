@@ -15,4 +15,8 @@ class Type extends Model
     public function subtypes() {
         return $this->hasMany(Subtype::class, 'type_id');
     }
+
+    public function patients() {
+        return $this->hasMany(Patient::class, 'type_id');
+    }
 }
