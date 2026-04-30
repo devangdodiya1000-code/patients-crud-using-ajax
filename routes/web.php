@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/patients/get', [PatientController::class, 'get'])->name('patients.get');
     Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');
     Route::post('/patients/store', [PatientController::class, 'store'])->name('patients.store');
+    Route::get('/patients/edit/{id}', [PatientController::class, 'edit'])->name('patients.edit');
 });
 
 require __DIR__.'/auth.php';

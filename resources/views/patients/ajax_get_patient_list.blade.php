@@ -21,8 +21,8 @@
             <td>{{ $patient->admission_date }}</td>
             <td>{{ $patient->discharge_date }}</td>
             <td>
-                <a href="#" class="btn btn-warning">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a href="#" class="btn btn-warning editBtn" data-id="{{ $patient->id }}">Edit</a>
+                <a href="#" class="btn btn-danger deleteBtn" data-id="{{ $patient->id }}">Delete</a>
             </td>
         </tr>
     @endforeach

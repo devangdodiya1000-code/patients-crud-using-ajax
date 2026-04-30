@@ -88,7 +88,6 @@
             processData: false,
             success: function(response) {
                 if(response.status) {
-                    alert('Data store successfully.');
                     $('#patientModal').modal('hide');
                     getPatients();
                 }
@@ -109,4 +108,26 @@
         $('.' + fields + '_error').text('');
         $(this).removeClass('is_invalid');
     });
+
+    $(document).on('click', '.editBtn', function() {
+        let patient_id = $(this).data('id');
+
+        let url = "{{ route('patients.edit', ':id') }}";
+        url = url.replace(':id', patient_id);
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function(response) {
+                if(response.status) {
+                    $('#modalContainer').html(response.html);
+
+                    let modalEl = document.getElementById('patientModal');
+                    let modal = new bootstrap.Modal(modalEl);
+
+                    modal.show();
+                }
+            }
+        });
+    })
 </script>

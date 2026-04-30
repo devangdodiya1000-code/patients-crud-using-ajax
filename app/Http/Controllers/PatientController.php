@@ -32,8 +32,24 @@ class PatientController extends Controller
         $title = "Add Patient";
         $types = Type::where('status', 1)->get();
         $subtypes = Subtype::where('status', 1)->get();
+        $patient = null;
 
-        $html = view('patients/ajax_get_add_patient_modal', compact('title', 'types', 'subtypes'))->render();
+        $html = view('patients/ajax_get_add_patient_modal', compact('title', 'types', 'subtypes', 'patient'))->render();
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Add modal open successfully',
+            'html' => $html,
+        ]);
+    }
+
+    public function edit($id) {
+        $title = "Edit Patient";
+        $types = Type::where('status', 1)->get();
+        $subtypes = Subtype::where('status', 1)->get();
+        $patient = Patient::find($id);
+
+        $html = view('patients/ajax_get_add_patient_modal', compact('title', 'types', 'subtypes', 'patient'))->render();
 
         return response()->json([
             'status' => 1,
@@ -43,6 +59,8 @@ class PatientController extends Controller
     }
 
     public function store(Request $request) {
+        $patient_id = $request->patient_id;
+
         $patient = $request->validate([
             'full_name'      => ['required', 'string', 'max:255'],
             'age'            => ['required', 'integer', 'min:0', 'max:120'],
@@ -59,7 +77,12 @@ class PatientController extends Controller
             'discharge_date' => ['nullable', 'date', 'after_or_equal:admit_date'],
         ]);
 
-        $patient = Patient::create($patient);
+        if($patient_id) {
+            $patientData = Patient::find($patient_id);
+            $patientData->update($patient);
+        }else{
+            $patientData = Patient::create($patient);
+        }
 
         return response()->json([
             'status' => 1,
