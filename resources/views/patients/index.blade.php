@@ -129,5 +129,21 @@
                 }
             }
         });
-    })
+    });
+
+    $(document).on('click', '.deleteBtn', function() {
+        let patient_id = $(this).data('id');
+
+        let url = "{{ route('patients.destroy', ':id') }}";
+        url = url.replace(':id', patient_id);
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function(response) {
+                alert('Patient delete successfully.');
+                getPatients();
+            }
+        });
+    });
 </script>

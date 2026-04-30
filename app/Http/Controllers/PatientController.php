@@ -89,4 +89,15 @@ class PatientController extends Controller
             'message' => 'data store succesfully.',
         ]);
     }
+
+    public function destroy($id) {
+        $patient = Patient::find($id);
+
+        $patient->delete();
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Patient delete successfully.',
+        ]);
+    }
 }
